@@ -1,0 +1,122 @@
+name: 24/7 CCTV & Found Footage AI Bot
+
+on:
+  schedule:
+    # Chạy kiểm tra mỗi giờ một lần (24/24)
+    # viral_scheduler.py sẽ chỉ kích hoạt 1 lần duy nhất trong ngày đúng vào khung giờ vàng quốc tế đã random
+    - cron: '15 * * * *'
+
+  # Cho phép gọi từ Webhook bên ngoài (cron-job.org)
+  repository_dispatch:
+    types: [trigger-cctv-bot]
+
+  # Cho phép kích hoạt thủ công từ giao diện GitHub
+  workflow_dispatch:
+    inputs:
+      force:
+        description: 'Bỏ qua kiểm tra lịch hẹn (Force run ngay lập tức)'
+        type: boolean
+        default: false
+      dry_run:
+        description: 'Chỉ tạo video, không đăng lên YouTube/Facebook (Dry run)'
+        type: boolean
+        default: false
+      mode:
+        description: 'Góc nhìn camera cụ thể (bỏ trống để tự động xoay tua)'
+        type: choice
+        options:
+          - AUTO
+          - CCTV
+          - BODYCAM
+          - DASHCAM
+          - DOORBELL_CAM
+        default: AUTO
+
+concurrency:
+  group: cctv-pipeline
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  produce_and_publish:
+    name: Produce & Auto-Publish Found Footage Short
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Checkout Codebase & History
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Fast FFmpeg Binary (< 5s)
+        uses: FedericoCarboni/setup-ffmpeg@v3
+        with:
+          ffmpeg-version: release
+
+      - name: Setup Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: 'pip'
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          python -m playwright install chromium --with-deps
+
+      - name: Setup Muse AI Browser Session
+        env:
+          MUSE_STORAGE_STATE: ${{ secrets.MUSE_STORAGE_STATE }}
+        run: |
+          mkdir -p muse_browser_data
+          if [ -n "$MUSE_STORAGE_STATE" ]; then
+            echo "$MUSE_STORAGE_STATE" > muse_browser_data/storage_state.json
+            echo "✅ Đã nạp phiên đăng nhập Muse AI từ GitHub Secrets!"
+          fi
+
+      - name: Check Daily Viral Schedule
+        id: check_schedule
+        run: |
+          if [ "${{ inputs.force }}" = "true" ]; then
+            python src/viral_scheduler.py --force
+          else
+            python src/viral_scheduler.py --check-only
+          fi
+
+      - name: Execute 24/7 AI Video Pipeline
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
+          FB_PAGE_ACCESS_TOKEN: ${{ secrets.FB_PAGE_ACCESS_TOKEN }}
+          NOTIFICATION_WEBHOOK: ${{ secrets.NOTIFICATION_WEBHOOK }}
+        run: |
+          ARGS=""
+
+          if [ "${{ inputs.force }}" = "true" ]; then
+            ARGS="$ARGS --force"
+          fi
+
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            ARGS="$ARGS --dry-run"
+          fi
+
+          if [ -n "${{ inputs.mode }}" ] && [ "${{ inputs.mode }}" != "AUTO" ]; then
+            ARGS="$ARGS --mode ${{ inputs.mode }}"
+          fi
+
+          echo "Running pipeline with args: $ARGS"
+          python -m src.pipeline $ARGS
+
+      - name: Commit & Persist History Back to Repo
+        if: always()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add history_cctv_posts.json daily_viral_schedule.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "chore(bot): update history and daily viral schedule [skip ci]" && git push)

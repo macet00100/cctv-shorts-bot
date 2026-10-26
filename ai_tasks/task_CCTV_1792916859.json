@@ -1,0 +1,25 @@
+{
+  "task_id": "task_CCTV_1792916859",
+  "camera_mode": "CCTV",
+  "location_type": "GAS_STATION_STORE",
+  "anomaly_type": "UNKNOWN_CRYPTID",
+  "case_title": "CCTV Cam 04: Unexplained Movement at Gas Station Store",
+  "pinned_comment": "Watch closely at 0:08 in the far corner... Is that a person standing there or an optical trick? Let me know your thoughts 👇",
+  "youtube_tags": [
+    "foundfootage",
+    "cctv",
+    "caughtoncamera",
+    "scary",
+    "bodycam",
+    "dashcam",
+    "mystery",
+    "paranormal",
+    "shorts"
+  ],
+  "start_frame_path": "C:\\Users\\ngu06\\Documents\\antigravity\\cam\\ai_tasks\\task_CCTV_1792916859_start_frame.jpg",
+  "kling_image_to_video_prompt": "The camera feed flickers slightly. The dark shadowy figure at the far end of the hallway slowly shifts position, taking two slow deliberate unnatural steps forward before pausing in the dim light, authentic surveillance camera grain, micro-jitter.",
+  "kling_text_to_video_prompt": "CCTV security surveillance camera POV, high angle corner mount, wide angle fisheye lens, authentic 2012 DVR timestamp recording, dimly lit abandoned gas station store. At second 2, a subtle eerie tall silhouette emerges slowly from the shadows near the far doorway, moving with unnatural stiff cadence across the corridor, flickering overhead fluorescent light, photorealistic, raw found footage, 50/50 realism, uncanny valley, grain, high ISO noise, no CGI.",
+  "negative_prompt": "cartoon, 3D animation, CGI, glossy, video game graphics, anime, bright vibrant colors, happy, cheerful, fake movie set, watermark, text banner, logo, oversaturated, morphing melting faces",
+  "recommended_motion": "5 / 10 (Realistic, not frantic)",
+  "recommended_camera": "Fixed camera with slight electrical sensor buzz and minor micro-shake."
+}

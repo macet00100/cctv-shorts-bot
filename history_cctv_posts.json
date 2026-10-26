@@ -1,0 +1,19 @@
+[
+  {
+    "id": "cctv_20261024_190210",
+    "camera_mode": "DASHCAM",
+    "location_type": "GAS_STATION_STORE",
+    "anomaly_type": "UNKNOWN_CRYPTID",
+    "case_title": "Dashcam St. Jude Texaco Lot Incident",
+    "core_tags": [
+      "dashcam",
+      "gasstation",
+      "cryptid",
+      "unexplained",
+      "nightfootage"
+    ],
+    "youtube_id": null,
+    "facebook_id": null,
+    "completed_at": "2026-10-24T12:02:10.190724+00:00"
+  }
+]

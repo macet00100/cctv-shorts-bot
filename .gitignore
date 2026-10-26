@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+virtualenv/
+
+# Environment variables & secrets
+.env
+*.token
+*_tokens.txt
+credentials.json
+client_secrets.json
+
+# Pipeline output videos & temp frames
+output/
+*.mp4
+*.wav
+*.mp3
+*.png
+*.jpg
+!assets/fonts/*.ttf
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Browser session & profile data
+muse_browser_data/
+

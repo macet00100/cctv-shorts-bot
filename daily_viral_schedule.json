@@ -1,0 +1,10 @@
+{
+  "date": "2026-10-27",
+  "window_id": "US_LUNCH_BREAK",
+  "window_name": "Giờ Ăn Trưa Bắc Mỹ (US EST 12:30 PM - 2:30 PM)",
+  "target_time_vn": "01:02",
+  "target_hour": 1,
+  "target_minute": 2,
+  "status": "PENDING",
+  "created_at": "2026-10-27 04:07:31"
+}
