@@ -106,29 +106,8 @@ What do you think is happening here?
             else:
                 print(f"[FACEBOOK] Finish response: {finish_data}")
 
-            # Phase 4: Auto-like & Auto-comment
-            time.sleep(2)
-            self._auto_like(video_id)
-            self._auto_comment(video_id, pinned_comment_text)
-
             return video_id
 
         except Exception as e:
             print(f"[FACEBOOK] Upload error: {e}")
             return None
-
-    def _auto_like(self, video_id: str):
-        try:
-            url = f"https://graph.facebook.com/{self.GRAPH_VERSION}/{video_id}/likes"
-            requests.post(url, data={"access_token": self.access_token}, timeout=15)
-            print(f"[FACEBOOK] Auto-liked Reel {video_id}")
-        except Exception as e:
-            print(f"[FACEBOOK] Auto-like warning: {e}")
-
-    def _auto_comment(self, video_id: str, comment_text: str):
-        try:
-            url = f"https://graph.facebook.com/{self.GRAPH_VERSION}/{video_id}/comments"
-            requests.post(url, data={"message": comment_text, "access_token": self.access_token}, timeout=15)
-            print(f"[FACEBOOK] Auto-commented: '{comment_text[:40]}...'")
-        except Exception as e:
-            print(f"[FACEBOOK] Auto-comment warning: {e}")

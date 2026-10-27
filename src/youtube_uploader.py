@@ -103,38 +103,8 @@ Transcript:
             print(f"[YOUTUBE] Video uploaded successfully! Video ID: {video_id}")
             print(f"[YOUTUBE] Link: https://youtube.com/shorts/{video_id}")
 
-            # 1. Auto-like the video
-            self._auto_like(youtube, video_id)
-
-            # 2. Post discussion comment
-            self._post_comment(youtube, video_id, pinned_comment_text)
-
             return video_id
 
         except Exception as e:
             print(f"[YOUTUBE] Upload failed: {e}")
             return None
-
-    def _auto_like(self, youtube, video_id: str):
-        try:
-            youtube.videos().rate(id=video_id, rating="like").execute()
-            print(f"[YOUTUBE] Auto-liked video {video_id}")
-        except Exception as e:
-            print(f"[YOUTUBE] Auto-like warning: {e}")
-
-    def _post_comment(self, youtube, video_id: str, text: str):
-        try:
-            body = {
-                "snippet": {
-                    "videoId": video_id,
-                    "topLevelComment": {
-                        "snippet": {
-                            "textOriginal": text
-                        }
-                    }
-                }
-            }
-            comment_res = youtube.commentThreads().insert(part="snippet", body=body).execute()
-            print(f"[YOUTUBE] Posted starter discussion comment: '{text[:40]}...'")
-        except Exception as e:
-            print(f"[YOUTUBE] Post comment warning: {e}")

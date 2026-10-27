@@ -167,15 +167,6 @@ def main():
     else:
         print("[DRY RUN] Bỏ qua ghi nhận history và cập nhật lịch hoàn thành.")
 
-    # Step 8: Community Engagement Bot Run (Auto-reply to audience)
-    if not args.dry_run:
-        print("\n>>> PHASE 6: AI COMMUNITY ENGAGEMENT CYCLE")
-        try:
-            bot = AICommunityEngagementBot()
-            bot.run_engagement_cycle()
-        except Exception as e:
-            print(f"[COMMUNITY ENGAGEMENT] Warning: {e}")
-
     print("\n" + "=" * 70)
     print("✅ PIPELINE EXECUTION COMPLETED SUCCESSFULLY!")
     print(f"📁 Video: {final_video_path}")
