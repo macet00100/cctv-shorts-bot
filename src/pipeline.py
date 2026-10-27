@@ -21,6 +21,26 @@ from src.youtube_uploader import YouTubeShortsUploader
 from src.facebook_uploader import FacebookReelsUploader
 from src.community_responder import AICommunityEngagementBot
 
+def cleanup_storage(output_dir: Path, keep_latest: int = 5, max_age_days: int = 3):
+    """Tự động dọn dẹp các video và ảnh cũ để chống đầy bộ nhớ."""
+    if not output_dir.exists():
+        return
+    try:
+        now_ts = time.time()
+        max_age_sec = max_age_days * 86400
+        files = [p for p in output_dir.glob("*") if p.is_file() and p.suffix.lower() in [".mp4", ".wav", ".png", ".jpg"]]
+        files.sort(key=lambda x: x.stat().st_mtime, reverse=True)
+        for idx, f in enumerate(files):
+            age_sec = now_ts - f.stat().st_mtime
+            if idx >= keep_latest or age_sec > max_age_sec:
+                try:
+                    f.unlink()
+                    print(f"[STORAGE CLEANUP] 🧹 Đã dọn dẹp file cũ: {f.name}")
+                except Exception:
+                    pass
+    except Exception as e:
+        print(f"[STORAGE CLEANUP] Notice: {e}")
+
 def main():
     parser = argparse.ArgumentParser(description="24/7 AI Found Footage Video Production Pipeline")
     parser.add_argument("--check-freshness", type=int, default=90, help="Minutes cooldown check (default: 90)")
@@ -40,6 +60,9 @@ def main():
         bot = AICommunityEngagementBot()
         bot.run_engagement_cycle()
         return
+
+    # Dọn dẹp sơ bộ bộ nhớ trước khi tạo video mới
+    cleanup_storage(OUTPUT_DIR, keep_latest=5, max_age_days=3)
 
     # Step 1: Kiểm tra lịch ngẫu nhiên Viral Quốc Tế trong ngày
     scheduler = ViralScheduler()

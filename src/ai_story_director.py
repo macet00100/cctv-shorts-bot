@@ -84,6 +84,18 @@ SAFE_INCIDENTS_BY_MODE = {
             "action": "A metal cafe chair on an empty outdoor patio slides smoothly across the pavement by itself for 3 feet with nobody around on a calm night, street light flickers once.",
             "hud": "NIGHT PATROL - UNEXPLAINED",
             "comment": "Wind or something unexplainable? Look closely at the chair movement! Tell us what you think 👇"
+        },
+        {
+            "type": "COFFEE_JUGGLE_SAVE",
+            "action": "A customer fumbles their paper cup, juggles it three times in mid-air, and catches it cleanly with one hand without spilling a drop, smiling happily as nearby people clap.",
+            "hud": "CAFE ENTRANCE - REFLEX",
+            "comment": "Juggling level 100! Tag a clumsy friend who would have spilled it immediately 😂"
+        },
+        {
+            "type": "WINDY_UMBRELLA_RECOVERY",
+            "action": "A sudden gust of wind flips an umbrella inside out and carries it down the street. A pedestrian leaps lightly and snatches the handle out of the air like a pro.",
+            "hud": "STREET CAM - WIND GUST",
+            "comment": "Smooth recovery in the wind! 10/10 catch ☂️"
         }
     ],
     "DASHCAM": [
@@ -98,6 +110,18 @@ SAFE_INCIDENTS_BY_MODE = {
             "action": "A light empty cardboard box blows across the windy avenue. The driver expertly steers smoothly into the adjacent lane dodging the debris cleanly without sudden jerk.",
             "hud": "HIGHWAY DASH - SMOOTH DODGE",
             "comment": "Clean recovery! Have you ever had debris fly toward your windshield like this?"
+        },
+        {
+            "type": "ANIMAL_CROSSING_PATIENCE",
+            "action": "A family of ducks waddles calmly across the boulevard crosswalk. The driver halts gently, waits with hazard lights on, and other cars pause politely until they cross safely.",
+            "hud": "DASHCAM - WILDLIFE PASS",
+            "comment": "Wholesome road moment ❤️ Respect to all drivers who pause for animals!"
+        },
+        {
+            "type": "PUDDLE_SPLASH_EVASION",
+            "action": "Driving along the curb lane, driver spots a deep water puddle beside pedestrians and slows down smoothly to a crawl to avoid splashing anyone on the sidewalk.",
+            "hud": "CITY DASH - COURTESY",
+            "comment": "Top tier driver etiquette! We need more considerate drivers like this 👏"
         }
     ],
     "DOORBELL_CAM": [
@@ -112,6 +136,18 @@ SAFE_INCIDENTS_BY_MODE = {
             "action": "A plastic watering can blows down the front driveway in a wind gust, a playful golden retriever sprints and gently nudges it into the soft lawn grass, saving it from the road.",
             "hud": "FRONT DRIVEWAY - PET CAM",
             "comment": "Good dog! Protecting the yard from runaway objects 🐶❤️"
+        },
+        {
+            "type": "PARCEL_MID_AIR_TOSS",
+            "action": "A delivery driver tosses a lightweight bubble mailer toward the porch mat, it lands with pinpoint accuracy perfectly flat on the welcome mat, driver does a subtle celebration victory pose.",
+            "hud": "PORCH VIEW - ACCURACY",
+            "comment": "Trickshot delivery! Kobe! 📦🏀"
+        },
+        {
+            "type": "CURIOUS_RACCOON_VISIT",
+            "action": "At quiet night, a cute chubby raccoon walks up to the porch mat, stares curiously straight into the camera lens with glowing round eyes, sniffs the air gently, and scampers off into the bushes.",
+            "hud": "NIGHT VISION - SMART CAM",
+            "comment": "Late night inspector checking the porch security 🦝 Would you leave him a snack?"
         }
     ],
     "BODYCAM": [
@@ -120,6 +156,18 @@ SAFE_INCIDENTS_BY_MODE = {
             "action": "A bicycle courier glides down a crowded walkway, a shopper drops a paper envelope, courier swiftly catches it in one hand mid-air and hands it right back with a friendly wave.",
             "hud": "COURIER POV - QUICK REFLEX",
             "comment": "Hand-eye coordination on point! Pure muscle memory 🔥"
+        },
+        {
+            "type": "ROLLERBLADE_BALANCE_SAVE",
+            "action": "A rollerblader navigating a park path hits a small pebble, stumbles forward on one skate, spins 360 degrees smoothly to regain balance and continues gliding effortlessly without falling.",
+            "hud": "ACTION CAM - 360 SAVE",
+            "comment": "Turned a stumble into an epic spin trick! That was too smooth 😎"
+        },
+        {
+            "type": "LOST_KITTEN_RESCUE",
+            "action": "Walking past a busy street corner, wearer spots a tiny lost kitten shivering by a bench, gently scoops it up into their warm jacket pocket, kitten purrs happily looking at the camera.",
+            "hud": "PATROL POV - RESCUE",
+            "comment": "Faith in humanity restored ❤️ Little buddy found a guardian angel!"
         }
     ]
 }
@@ -183,22 +231,27 @@ class AIStoryDirector:
         Sinh kịch bản độc nhất vô nhị không trùng lặp,
         Tiêu đề: [Tên địa điểm] - [DD/MM/YYYY]
         """
-        camera_mode = override_mode if override_mode in CAMERA_MODES else random.choice(CAMERA_MODES)
+        # 1. Chọn loại camera thông minh (tự động xoay tua để không bị trùng lặp liên tiếp)
+        if override_mode in CAMERA_MODES:
+            camera_mode = override_mode
+        else:
+            recent_modes = [p.get("camera_mode") for p in self.history[-2:] if p.get("camera_mode")]
+            available_modes = [m for m in CAMERA_MODES if m not in recent_modes]
+            camera_mode = random.choice(available_modes if available_modes else CAMERA_MODES)
 
-        # 1. Chọn địa điểm phù hợp theo loại camera và chống trùng lặp
+        # 2. Chọn địa điểm phù hợp theo loại camera và chống trùng lặp (không trùng trong 30 bài gần nhất)
         available_locs = LOCATIONS_BY_MODE.get(camera_mode, LOCATIONS_BY_MODE["CCTV"])
         recent_locations = {p.get("location_name") for p in self.history[-30:] if p.get("location_name")}
         filtered_locs = [loc for loc in available_locs if loc not in recent_locations]
-        if not filtered_locs:
-            filtered_locs = available_locs
+        chosen_location = random.choice(filtered_locs if filtered_locs else available_locs)
 
-        chosen_location = random.choice(filtered_locs)
-
-        # 2. Chọn sự cố phù hợp với loại camera
+        # 3. Chọn sự cố phù hợp và chống trùng ý tưởng (không trùng trong 15 bài gần nhất)
         incidents_pool = SAFE_INCIDENTS_BY_MODE.get(camera_mode, SAFE_INCIDENTS_BY_MODE["CCTV"])
-        incident = random.choice(incidents_pool)
+        recent_incidents = {p.get("anomaly_type") for p in self.history[-15:] if p.get("anomaly_type")}
+        filtered_incidents = [inc for inc in incidents_pool if inc["type"] not in recent_incidents]
+        incident = random.choice(filtered_incidents if filtered_incidents else incidents_pool)
 
-        # 3. Định dạng ngày tháng năm & thời gian thực tế chính xác khi bắt đầu render
+        # 4. Định dạng ngày tháng năm & thời gian thực tế chính xác khi bắt đầu render
         now = datetime.now()
         date_str = now.strftime("%d/%m/%Y")
         current_time_str = now.strftime("%Y-%m-%d %H:%M:%S")
