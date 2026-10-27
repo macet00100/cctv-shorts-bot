@@ -73,10 +73,7 @@ jobs:
           MUSE_STORAGE_STATE: ${{ secrets.MUSE_STORAGE_STATE }}
         run: |
           mkdir -p muse_browser_data
-          if [ -n "$MUSE_STORAGE_STATE" ]; then
-            echo "$MUSE_STORAGE_STATE" > muse_browser_data/storage_state.json
-            echo "✅ Đã nạp phiên đăng nhập Muse AI từ GitHub Secrets!"
-          fi
+          python -c "import os; s = os.getenv('MUSE_STORAGE_STATE'); open('muse_browser_data/storage_state.json', 'w', encoding='utf-8').write(s) if s else print('⚠️ Chưa thiết lập MUSE_STORAGE_STATE')"
 
       - name: Check Daily Viral Schedule
         id: check_schedule
