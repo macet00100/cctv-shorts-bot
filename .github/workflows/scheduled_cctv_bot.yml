@@ -110,6 +110,15 @@ jobs:
           echo "Running pipeline with args: $ARGS"
           python -m src.pipeline $ARGS
 
+      - name: Upload Generated Video as Artifact (Cho phép tải về)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-viral-short
+          path: output/*.mp4
+          retention-days: 7
+          if-no-files-found: ignore
+
       - name: Commit & Persist History Back to Repo
         if: always()
         run: |
