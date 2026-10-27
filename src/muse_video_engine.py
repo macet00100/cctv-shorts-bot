@@ -89,19 +89,40 @@ class MuseVideoEngine:
         captured_video_urls = []
 
         with sync_playwright() as p:
-            launch_kwargs = {
-                "user_data_dir": str(self.user_data_dir),
-                "headless": self.headless,
-                "args": [
-                    "--disable-blink-features=AutomationControlled",
-                    "--window-size=1280,800"
-                ]
-            }
+            state_file = self.user_data_dir / "storage_state.json"
+            browser_args = [
+                "--disable-blink-features=AutomationControlled",
+                "--no-sandbox",
+                "--disable-setuid-sandbox",
+                "--disable-dev-shm-usage"
+            ]
 
-            try:
-                context = p.chromium.launch_persistent_context(channel="chrome", **launch_kwargs)
-            except Exception:
-                context = p.chromium.launch_persistent_context(**launch_kwargs)
+            browser = None
+            context = None
+
+            if state_file.exists():
+                try:
+                    browser = p.chromium.launch(headless=self.headless, args=browser_args)
+                    context = browser.new_context(
+                        storage_state=str(state_file),
+                        viewport={"width": 1280, "height": 800}
+                    )
+                    print(f"[MUSE AI] ✅ Đã nạp phiên đăng nhập trực tiếp từ {state_file.name}")
+                except Exception as e:
+                    print(f"[MUSE AI] Warning when loading storage_state: {e}, falling back to persistent context...")
+                    browser = None
+                    context = None
+
+            if not context:
+                launch_kwargs = {
+                    "user_data_dir": str(self.user_data_dir),
+                    "headless": self.headless,
+                    "args": browser_args + ["--window-size=1280,800"]
+                }
+                try:
+                    context = p.chromium.launch_persistent_context(channel="chrome", **launch_kwargs)
+                except Exception:
+                    context = p.chromium.launch_persistent_context(**launch_kwargs)
 
             page = context.pages[0] if context.pages else context.new_page()
 
@@ -239,6 +260,15 @@ class MuseVideoEngine:
                     raise TimeoutError(f"Quá thời gian ({timeout_seconds}s) chờ Muse AI sinh video. Đã lưu ảnh debug: {debug_screenshot}")
 
             finally:
-                context.close()
+                if context:
+                    try:
+                        context.close()
+                    except Exception:
+                        pass
+                if browser:
+                    try:
+                        browser.close()
+                    except Exception:
+                        pass
 
         return output_video_path
