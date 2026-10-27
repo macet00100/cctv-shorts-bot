@@ -54,25 +54,10 @@ class YouTubeShortsUploader:
             youtube = self._get_service()
 
             raw_title = scenario.get("case_title", "Unexplained Surveillance Anomaly")
-            title = f"{raw_title} #Shorts"[:100]
+            title = f"{raw_title} #shorts #cctv #viral"[:100]
 
-            script = scenario.get("narrator_script", "")
-            tags = scenario.get("youtube_tags", ["shorts", "cctv", "foundfootage", "mystery"])
-            pinned_comment_text = scenario.get("pinned_comment", "Real or CGI? Drop your theories 👇")
-
-            description = f"""{title}
-
-Declassified surveillance & found footage incident.
-Location: {scenario.get('hud_text_location', 'Unknown')}
-Mode: {scenario.get('camera_mode', 'CCTV')}
-
-Transcript:
-"{script}"
-
-⚠️ DISCLAIMER: This video is a dramatic found footage creation for entertainment purposes.
-
-#Shorts #FoundFootage #CaughtOnCamera #Mystery #Horror #CCTV #Bodycam #Scary
-"""
+            tags = scenario.get("youtube_tags", ["shorts", "cctv", "caughtoncamera", "viral"])
+            description = ""
 
             body = {
                 "snippet": {

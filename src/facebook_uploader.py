@@ -30,16 +30,7 @@ class FacebookReelsUploader:
 
         try:
             case_title = scenario.get("case_title", "Unexplained Camera Incident")
-            pinned_comment_text = scenario.get("pinned_comment", "Real or staged? Tell us below 👇")
-            description = f"""{case_title}
-
-📍 Location: {scenario.get('hud_text_location', 'Restricted Area')}
-📹 Perspective: {scenario.get('camera_mode', 'CCTV')}
-
-What do you think is happening here?
-
-#reels #caughtoncamera #cctv #foundfootage #mystery #paranormal #dashcam #bodycam
-"""
+            description = f"{case_title} #shorts #reels #cctv #viral"
 
             file_size = os.path.getsize(video_path)
             print(f"[FACEBOOK] Starting Facebook Reel upload: {case_title} ({file_size / 1024 / 1024:.2f} MB)...")
