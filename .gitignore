@@ -49,4 +49,5 @@ Thumbs.db
 
 # Browser session & profile data
 muse_browser_data/
+auto_setup_github_and_push.py
 
