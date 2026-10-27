@@ -15,5 +15,15 @@
     "youtube_id": null,
     "facebook_id": null,
     "completed_at": "2026-10-24T12:02:10.190724+00:00"
+  },
+  {
+    "id": "CCT-10270651",
+    "case_title": "Bourke Street Mall, Melbourne - 27/10/2026",
+    "location_name": "Bourke Street Mall, Melbourne",
+    "camera_mode": "CCTV",
+    "anomaly_type": "WINDY_UMBRELLA_RECOVERY",
+    "youtube_id": "s5yJ6Ln87WM",
+    "facebook_id": null,
+    "completed_at": "2026-10-27T06:51:55.326757+00:00"
   }
 ]
