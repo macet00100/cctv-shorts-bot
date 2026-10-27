@@ -9,7 +9,7 @@ if hasattr(sys.stdout, "reconfigure"):
 if hasattr(sys.stderr, "reconfigure"):
     sys.stderr.reconfigure(encoding="utf-8", errors="replace")
 
-from src.config import TARGET_DURATION, VIDEO_PROVIDER
+from src.config import TARGET_DURATION, VIDEO_PROVIDER, OUTPUT_DIR
 from src.viral_scheduler import ViralScheduler
 from src.ai_story_director import AIStoryDirector
 from src.footage_engine import FootageEngine
@@ -90,6 +90,7 @@ def main():
     # Step 4 & 5: Video Preparation (20s Clean Viral Short - 100% Pure Muse AI, No Extra HUD)
     print(f"\n>>> PHASE 3 & 4: PREPARING 20S VIRAL SHORT (100% PURE MUSE AI)")
     if VIDEO_PROVIDER == "MUSE" and base_source_path and base_source_path.suffix.lower() == ".mp4":
+        OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
         final_video_path = OUTPUT_DIR / f"clean_short_{scenario.get('camera_mode', 'CCTV')}_{int(time.time())}.mp4"
         print(f"[CLEAN PIPELINE] Extending 10s Muse AI video to 20s via Slow-Mo Replay (No artificial text)...")
         import subprocess
@@ -108,7 +109,10 @@ def main():
             "-b:a", "128k",
             str(final_video_path)
         ]
-        subprocess.run(clean_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        res = subprocess.run(clean_cmd, capture_output=True, text=True)
+        if not final_video_path.exists() or final_video_path.stat().st_size == 0:
+            print(f"[CLEAN PIPELINE] ⚠️ FFmpeg notice, using raw base video: {base_source_path.name}")
+            final_video_path = base_source_path
     else:
         audio_engine = AuthenticCameraAudioEngine()
         master_audio_path = audio_engine.build_audio(scenario, duration=TARGET_DURATION)
@@ -134,8 +138,11 @@ def main():
         fb_id = fb_uploader.upload(final_video_path, scenario)
 
     # Step 7: Layer 4 Persistent History Recording & Daily Schedule Update
-    director.record_completed_post(scenario, yt_id=yt_id, fb_id=fb_id)
-    scheduler.mark_completed(video_title=scenario.get("case_title"), yt_id=yt_id, fb_id=fb_id)
+    if not args.dry_run:
+        director.record_completed_post(scenario, yt_id=yt_id, fb_id=fb_id)
+        scheduler.mark_completed(video_title=scenario.get("case_title"), yt_id=yt_id, fb_id=fb_id)
+    else:
+        print("[DRY RUN] Bỏ qua ghi nhận history và cập nhật lịch hoàn thành.")
 
     # Step 8: Community Engagement Bot Run (Auto-reply to audience)
     if not args.dry_run:
