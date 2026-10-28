@@ -18,7 +18,7 @@ on:
         type: boolean
         default: false
       dry_run:
-        description: 'Chỉ tạo video, không đăng lên YouTube/Facebook (Dry run)'
+        description: 'Chỉ tạo video, không đăng lên YouTube (Dry run)'
         type: boolean
         default: false
       mode:

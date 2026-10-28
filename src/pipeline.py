@@ -144,21 +144,17 @@ def main():
 
     print(f"🎥 Final Video Ready for Publishing: {final_video_path}")
 
-    # Step 6: Multi-platform Upload
+    # Step 6: YouTube Shorts Publishing (Facebook Reels disabled as requested)
     yt_id = None
     fb_id = None
 
     if args.dry_run:
         print("\n>>> PHASE 5: DRY RUN ACTIVE - SKIPPING UPLOADS.")
     else:
-        print("\n>>> PHASE 5: MULTI-PLATFORM AUTO-PUBLISHING & COMMUNITY SETUP")
+        print("\n>>> PHASE 5: AUTO-PUBLISHING TO YOUTUBE SHORTS")
         # YouTube Shorts
         yt_uploader = YouTubeShortsUploader()
         yt_id = yt_uploader.upload(final_video_path, scenario)
-
-        # Facebook Reels
-        fb_uploader = FacebookReelsUploader()
-        fb_id = fb_uploader.upload(final_video_path, scenario)
 
     # Step 7: Layer 4 Persistent History Recording & Daily Schedule Update
     if not args.dry_run:
@@ -172,8 +168,6 @@ def main():
     print(f"📁 Video: {final_video_path}")
     if yt_id:
         print(f"▶️ YouTube Shorts: https://youtube.com/shorts/{yt_id}")
-    if fb_id:
-        print(f"📘 Facebook Reel: Video ID {fb_id}")
     print("=" * 70)
 
 if __name__ == "__main__":

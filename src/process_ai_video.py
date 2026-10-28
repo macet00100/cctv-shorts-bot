@@ -193,20 +193,13 @@ class AIClipProcessor:
             else:
                 print("\n[DRY RUN] Skipping social uploads.")
         else:
-            print("\n>>> UPLOADING TO YOUTUBE SHORTS & FACEBOOK REELS...")
+            print("\n>>> UPLOADING TO YOUTUBE SHORTS...")
             try:
                 yt_uploader = YouTubeShortsUploader()
                 yt_id = yt_uploader.upload(output_video_path, task_data)
                 print(f"▶️ YouTube Shorts: https://youtube.com/shorts/{yt_id}")
             except Exception as e:
                 print(f"⚠️ YouTube upload error: {e}")
-
-            try:
-                fb_uploader = FacebookReelsUploader()
-                fb_id = fb_uploader.upload(output_video_path, task_data)
-                print(f"📘 Facebook Reel ID: {fb_id}")
-            except Exception as e:
-                print(f"⚠️ Facebook upload error: {e}")
 
         return output_video_path
 
