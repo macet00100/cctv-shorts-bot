@@ -35,5 +35,15 @@
     "youtube_id": "bGpEcDkLr1E",
     "facebook_id": "1452065472919348",
     "completed_at": "2026-10-27T07:11:25.437228+00:00"
+  },
+  {
+    "id": "DOO-10280824",
+    "case_title": "Oakridge Front Steps, Seattle - 28/10/2026",
+    "location_name": "Oakridge Front Steps, Seattle",
+    "camera_mode": "DOORBELL_CAM",
+    "anomaly_type": "FUNNY_SLIP_TUMBLE",
+    "youtube_id": "_CRtDIl2WME",
+    "facebook_id": null,
+    "completed_at": "2026-10-28T08:24:25.529375+00:00"
   }
 ]

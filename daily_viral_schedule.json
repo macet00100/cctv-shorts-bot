@@ -5,6 +5,10 @@
   "target_time_vn": "11:58",
   "target_hour": 11,
   "target_minute": 58,
-  "status": "PENDING",
-  "created_at": "2026-10-28 01:40:54"
+  "status": "COMPLETED",
+  "created_at": "2026-10-28 01:40:54",
+  "completed_at": "2026-10-28 15:24:25",
+  "completed_video_title": "Oakridge Front Steps, Seattle - 28/10/2026",
+  "youtube_id": "_CRtDIl2WME",
+  "facebook_id": null
 }
