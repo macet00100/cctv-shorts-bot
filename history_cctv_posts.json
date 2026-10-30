@@ -45,5 +45,15 @@
     "youtube_id": "_CRtDIl2WME",
     "facebook_id": null,
     "completed_at": "2026-10-28T08:24:25.529375+00:00"
+  },
+  {
+    "id": "CCT-10301247",
+    "case_title": "Camden High Street, London - 30/10/2026",
+    "location_name": "Camden High Street, London",
+    "camera_mode": "CCTV",
+    "anomaly_type": "HEROIC_CLOSE_CALL",
+    "youtube_id": "n33RvCjuPGk",
+    "facebook_id": null,
+    "completed_at": "2026-10-30T12:47:09.461097+00:00"
   }
 ]
