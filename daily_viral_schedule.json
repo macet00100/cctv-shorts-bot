@@ -1,14 +1,10 @@
 {
-  "date": "2026-10-31",
-  "window_id": "US_WEST_COAST_LATE",
-  "window_name": "Giờ Vàng Bờ Tây Mỹ (US PST 9:30 PM - 11:30 PM)",
-  "target_time_vn": "11:48",
-  "target_hour": 11,
-  "target_minute": 48,
-  "status": "COMPLETED",
-  "created_at": "2026-10-31 01:35:41",
-  "completed_at": "2026-10-31 16:33:06",
-  "completed_video_title": "Pike Place Market, Seattle - 31/10/2026",
-  "youtube_id": "R86uW2g2kV0",
-  "facebook_id": null
+  "date": "2026-11-01",
+  "window_id": "US_PRIME_EVENING",
+  "window_name": "Giờ Vàng Mỹ Buổi Tối (US EST 8:00 PM - 10:30 PM)",
+  "target_time_vn": "09:03",
+  "target_hour": 9,
+  "target_minute": 3,
+  "status": "PENDING",
+  "created_at": "2026-11-01 02:56:20"
 }
