@@ -5,6 +5,10 @@
   "target_time_vn": "09:03",
   "target_hour": 9,
   "target_minute": 3,
-  "status": "PENDING",
-  "created_at": "2026-11-01 02:56:20"
+  "status": "COMPLETED",
+  "created_at": "2026-11-01 02:56:20",
+  "completed_at": "2026-11-01 12:56:13",
+  "completed_video_title": "Autobahn A8 Junction, Munich - 01/11/2026",
+  "youtube_id": null,
+  "facebook_id": null
 }

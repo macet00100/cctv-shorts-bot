@@ -65,5 +65,15 @@
     "youtube_id": "R86uW2g2kV0",
     "facebook_id": null,
     "completed_at": "2026-10-31T09:33:06.673401+00:00"
+  },
+  {
+    "id": "DAS-11010556",
+    "case_title": "Autobahn A8 Junction, Munich - 01/11/2026",
+    "location_name": "Autobahn A8 Junction, Munich",
+    "camera_mode": "DASHCAM",
+    "anomaly_type": "PUDDLE_SPLASH_EVASION",
+    "youtube_id": null,
+    "facebook_id": null,
+    "completed_at": "2026-11-01T05:56:13.452514+00:00"
   }
 ]
