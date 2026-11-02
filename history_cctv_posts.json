@@ -85,5 +85,15 @@
     "youtube_id": null,
     "facebook_id": null,
     "completed_at": "2026-11-02T10:55:50.482592+00:00"
+  },
+  {
+    "id": "BOD-11022044",
+    "case_title": "George Street Bike Lane, Sydney - 02/11/2026",
+    "location_name": "George Street Bike Lane, Sydney",
+    "camera_mode": "BODYCAM",
+    "anomaly_type": "COURIER_REFLEX_CATCH",
+    "youtube_id": null,
+    "facebook_id": null,
+    "completed_at": "2026-11-02T20:45:04.292838+00:00"
   }
 ]
