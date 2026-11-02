@@ -75,5 +75,15 @@
     "youtube_id": null,
     "facebook_id": null,
     "completed_at": "2026-11-01T05:56:13.452514+00:00"
+  },
+  {
+    "id": "DOO-11021055",
+    "case_title": "Highland Park Driveway, Texas - 02/11/2026",
+    "location_name": "Highland Park Driveway, Texas",
+    "camera_mode": "DOORBELL_CAM",
+    "anomaly_type": "PET_HEROIC_SAVE",
+    "youtube_id": null,
+    "facebook_id": null,
+    "completed_at": "2026-11-02T10:55:50.482592+00:00"
   }
 ]
