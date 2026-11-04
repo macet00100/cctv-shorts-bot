@@ -95,5 +95,15 @@
     "youtube_id": null,
     "facebook_id": null,
     "completed_at": "2026-11-02T20:45:04.292838+00:00"
+  },
+  {
+    "id": "CCT-11040608",
+    "case_title": "SoHo Broadway, New York - 04/11/2026",
+    "location_name": "SoHo Broadway, New York",
+    "camera_mode": "CCTV",
+    "anomaly_type": "COFFEE_JUGGLE_SAVE",
+    "youtube_id": null,
+    "facebook_id": null,
+    "completed_at": "2026-11-04T06:08:39.102152+00:00"
   }
 ]
