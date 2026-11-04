@@ -105,5 +105,15 @@
     "youtube_id": null,
     "facebook_id": null,
     "completed_at": "2026-11-04T06:08:39.102152+00:00"
+  },
+  {
+    "id": "DAS-11042117",
+    "case_title": "Shuto Expressway Bay Route, Tokyo - 04/11/2026",
+    "location_name": "Shuto Expressway Bay Route, Tokyo",
+    "camera_mode": "DASHCAM",
+    "anomaly_type": "RUNAWAY_OBJECT_DODGE",
+    "youtube_id": null,
+    "facebook_id": null,
+    "completed_at": "2026-11-04T21:17:10.039045+00:00"
   }
 ]

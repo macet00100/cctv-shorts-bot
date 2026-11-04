@@ -1,14 +1,14 @@
 {
-  "date": "2026-11-04",
-  "window_id": "US_PRIME_EVENING",
-  "window_name": "Giờ Vàng Mỹ Buổi Tối (US EST 8:00 PM - 10:30 PM)",
-  "target_time_vn": "08:15",
-  "target_hour": 8,
-  "target_minute": 15,
+  "date": "2026-11-05",
+  "window_id": "US_LUNCH_BREAK",
+  "window_name": "Giờ Ăn Trưa Bắc Mỹ (US EST 12:30 PM - 2:30 PM)",
+  "target_time_vn": "00:27",
+  "target_hour": 0,
+  "target_minute": 27,
   "status": "COMPLETED",
-  "created_at": "2026-11-04 01:25:07",
-  "completed_at": "2026-11-04 13:08:39",
-  "completed_video_title": "SoHo Broadway, New York - 04/11/2026",
+  "created_at": "2026-11-05 04:17:00",
+  "completed_at": "2026-11-05 04:17:10",
+  "completed_video_title": "Shuto Expressway Bay Route, Tokyo - 04/11/2026",
   "youtube_id": null,
   "facebook_id": null
 }
