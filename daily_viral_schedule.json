@@ -1,14 +1,10 @@
 {
-  "date": "2026-11-05",
-  "window_id": "US_LUNCH_BREAK",
-  "window_name": "Giờ Ăn Trưa Bắc Mỹ (US EST 12:30 PM - 2:30 PM)",
-  "target_time_vn": "00:27",
-  "target_hour": 0,
-  "target_minute": 27,
-  "status": "COMPLETED",
-  "created_at": "2026-11-05 04:17:00",
-  "completed_at": "2026-11-05 04:17:10",
-  "completed_video_title": "Shuto Expressway Bay Route, Tokyo - 04/11/2026",
-  "youtube_id": null,
-  "facebook_id": null
+  "date": "2026-11-06",
+  "window_id": "US_WEST_COAST_LATE",
+  "window_name": "Giờ Vàng Bờ Tây Mỹ (US PST 9:30 PM - 11:30 PM)",
+  "target_time_vn": "12:28",
+  "target_hour": 12,
+  "target_minute": 28,
+  "status": "PENDING",
+  "created_at": "2026-11-06 01:42:09"
 }
