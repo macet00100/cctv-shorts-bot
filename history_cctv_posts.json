@@ -125,5 +125,15 @@
     "youtube_id": null,
     "facebook_id": null,
     "completed_at": "2026-11-06T06:33:32.131014+00:00"
+  },
+  {
+    "id": "BOD-11070704",
+    "case_title": "Fisherman's Wharf, San Francisco - 07/11/2026",
+    "location_name": "Fisherman's Wharf, San Francisco",
+    "camera_mode": "BODYCAM",
+    "anomaly_type": "LOST_KITTEN_RESCUE",
+    "youtube_id": null,
+    "facebook_id": null,
+    "completed_at": "2026-11-07T07:04:27.384557+00:00"
   }
 ]
